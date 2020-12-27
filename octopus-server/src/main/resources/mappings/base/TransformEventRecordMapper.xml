@@ -1,0 +1,552 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.throwx.octopus.server.repository.mapper.TransformEventRecordMapper">
+    <resultMap id="BaseResultMap" type="cn.throwx.octopus.server.model.entity.TransformEventRecord">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="edit_time" jdbcType="TIMESTAMP" property="editTime"/>
+        <result column="creator" jdbcType="VARCHAR" property="creator"/>
+        <result column="editor" jdbcType="VARCHAR" property="editor"/>
+        <result column="deleted" jdbcType="TINYINT" property="deleted"/>
+        <result column="version" jdbcType="BIGINT" property="version"/>
+        <result column="unique_identity" jdbcType="VARCHAR" property="uniqueIdentity"/>
+        <result column="client_ip" jdbcType="VARCHAR" property="clientIp"/>
+        <result column="short_url" jdbcType="VARCHAR" property="shortUrl"/>
+        <result column="long_url" jdbcType="VARCHAR" property="longUrl"/>
+        <result column="short_url_digest" jdbcType="VARCHAR" property="shortUrlDigest"/>
+        <result column="long_url_digest" jdbcType="VARCHAR" property="longUrlDigest"/>
+        <result column="compression_code" jdbcType="VARCHAR" property="compressionCode"/>
+        <result column="record_time" jdbcType="TIMESTAMP" property="recordTime"/>
+        <result column="user_agent" jdbcType="VARCHAR" property="userAgent"/>
+        <result column="cookie_value" jdbcType="VARCHAR" property="cookieValue"/>
+        <result column="query_param" jdbcType="VARCHAR" property="queryParam"/>
+        <result column="province" jdbcType="VARCHAR" property="province"/>
+        <result column="city" jdbcType="VARCHAR" property="city"/>
+        <result column="phone_type" jdbcType="VARCHAR" property="phoneType"/>
+        <result column="browser_type" jdbcType="VARCHAR" property="browserType"/>
+        <result column="browser_version" jdbcType="VARCHAR" property="browserVersion"/>
+        <result column="os_type" jdbcType="VARCHAR" property="osType"/>
+        <result column="device_type" jdbcType="VARCHAR" property="deviceType"/>
+        <result column="os_version" jdbcType="VARCHAR" property="osVersion"/>
+        <result column="transform_status" jdbcType="TINYINT" property="transformStatus"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        id, create_time, edit_time, creator, editor, deleted, version, unique_identity, client_ip,
+    short_url, long_url, short_url_digest, long_url_digest, compression_code, record_time, 
+    user_agent, cookie_value, query_param, province, city, phone_type, browser_type, 
+    browser_version, os_type, device_type, os_version, transform_status
+    </sql>
+    <select id="selectByExample" parameterType="cn.throwx.octopus.server.model.entity.TransformEventRecordExample"
+            resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from transform_event_record
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from transform_event_record
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete
+        from transform_event_record
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="cn.throwx.octopus.server.model.entity.TransformEventRecord">
+        insert into transform_event_record (id, create_time, edit_time,
+                                            creator, editor, deleted,
+                                            version, unique_identity, client_ip,
+                                            short_url, long_url, short_url_digest,
+                                            long_url_digest, compression_code, record_time,
+                                            user_agent, cookie_value, query_param,
+                                            province, city, phone_type,
+                                            browser_type, browser_version, os_type,
+                                            device_type, os_version, transform_status)
+        values (#{id,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{editTime,jdbcType=TIMESTAMP},
+                #{creator,jdbcType=VARCHAR}, #{editor,jdbcType=VARCHAR}, #{deleted,jdbcType=TINYINT},
+                #{version,jdbcType=BIGINT}, #{uniqueIdentity,jdbcType=VARCHAR}, #{clientIp,jdbcType=VARCHAR},
+                #{shortUrl,jdbcType=VARCHAR}, #{longUrl,jdbcType=VARCHAR}, #{shortUrlDigest,jdbcType=VARCHAR},
+                #{longUrlDigest,jdbcType=VARCHAR}, #{compressionCode,jdbcType=VARCHAR},
+                #{recordTime,jdbcType=TIMESTAMP},
+                #{userAgent,jdbcType=VARCHAR}, #{cookieValue,jdbcType=VARCHAR}, #{queryParam,jdbcType=VARCHAR},
+                #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{phoneType,jdbcType=VARCHAR},
+                #{browserType,jdbcType=VARCHAR}, #{browserVersion,jdbcType=VARCHAR}, #{osType,jdbcType=VARCHAR},
+                #{deviceType,jdbcType=VARCHAR}, #{osVersion,jdbcType=VARCHAR}, #{transformStatus,jdbcType=TINYINT})
+    </insert>
+    <insert id="insertSelective" parameterType="cn.throwx.octopus.server.model.entity.TransformEventRecord"
+            keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+        insert into transform_event_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="editTime != null">
+                edit_time,
+            </if>
+            <if test="creator != null">
+                creator,
+            </if>
+            <if test="editor != null">
+                editor,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+            <if test="version != null">
+                version,
+            </if>
+            <if test="uniqueIdentity != null">
+                unique_identity,
+            </if>
+            <if test="clientIp != null">
+                client_ip,
+            </if>
+            <if test="shortUrl != null">
+                short_url,
+            </if>
+            <if test="longUrl != null">
+                long_url,
+            </if>
+            <if test="shortUrlDigest != null">
+                short_url_digest,
+            </if>
+            <if test="longUrlDigest != null">
+                long_url_digest,
+            </if>
+            <if test="compressionCode != null">
+                compression_code,
+            </if>
+            <if test="recordTime != null">
+                record_time,
+            </if>
+            <if test="userAgent != null">
+                user_agent,
+            </if>
+            <if test="cookieValue != null">
+                cookie_value,
+            </if>
+            <if test="queryParam != null">
+                query_param,
+            </if>
+            <if test="province != null">
+                province,
+            </if>
+            <if test="city != null">
+                city,
+            </if>
+            <if test="phoneType != null">
+                phone_type,
+            </if>
+            <if test="browserType != null">
+                browser_type,
+            </if>
+            <if test="browserVersion != null">
+                browser_version,
+            </if>
+            <if test="osType != null">
+                os_type,
+            </if>
+            <if test="deviceType != null">
+                device_type,
+            </if>
+            <if test="osVersion != null">
+                os_version,
+            </if>
+            <if test="transformStatus != null">
+                transform_status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="editTime != null">
+                #{editTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="creator != null">
+                #{creator,jdbcType=VARCHAR},
+            </if>
+            <if test="editor != null">
+                #{editor,jdbcType=VARCHAR},
+            </if>
+            <if test="deleted != null">
+                #{deleted,jdbcType=TINYINT},
+            </if>
+            <if test="version != null">
+                #{version,jdbcType=BIGINT},
+            </if>
+            <if test="uniqueIdentity != null">
+                #{uniqueIdentity,jdbcType=VARCHAR},
+            </if>
+            <if test="clientIp != null">
+                #{clientIp,jdbcType=VARCHAR},
+            </if>
+            <if test="shortUrl != null">
+                #{shortUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="longUrl != null">
+                #{longUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="shortUrlDigest != null">
+                #{shortUrlDigest,jdbcType=VARCHAR},
+            </if>
+            <if test="longUrlDigest != null">
+                #{longUrlDigest,jdbcType=VARCHAR},
+            </if>
+            <if test="compressionCode != null">
+                #{compressionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="recordTime != null">
+                #{recordTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="userAgent != null">
+                #{userAgent,jdbcType=VARCHAR},
+            </if>
+            <if test="cookieValue != null">
+                #{cookieValue,jdbcType=VARCHAR},
+            </if>
+            <if test="queryParam != null">
+                #{queryParam,jdbcType=VARCHAR},
+            </if>
+            <if test="province != null">
+                #{province,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null">
+                #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="phoneType != null">
+                #{phoneType,jdbcType=VARCHAR},
+            </if>
+            <if test="browserType != null">
+                #{browserType,jdbcType=VARCHAR},
+            </if>
+            <if test="browserVersion != null">
+                #{browserVersion,jdbcType=VARCHAR},
+            </if>
+            <if test="osType != null">
+                #{osType,jdbcType=VARCHAR},
+            </if>
+            <if test="deviceType != null">
+                #{deviceType,jdbcType=VARCHAR},
+            </if>
+            <if test="osVersion != null">
+                #{osVersion,jdbcType=VARCHAR},
+            </if>
+            <if test="transformStatus != null">
+                #{transformStatus,jdbcType=TINYINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByExampleSelective" parameterType="map">
+        update transform_event_record
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=BIGINT},
+            </if>
+            <if test="record.createTime != null">
+                create_time = #{record.createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.editTime != null">
+                edit_time = #{record.editTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.creator != null">
+                creator = #{record.creator,jdbcType=VARCHAR},
+            </if>
+            <if test="record.editor != null">
+                editor = #{record.editor,jdbcType=VARCHAR},
+            </if>
+            <if test="record.deleted != null">
+                deleted = #{record.deleted,jdbcType=TINYINT},
+            </if>
+            <if test="record.version != null">
+                version = #{record.version,jdbcType=BIGINT},
+            </if>
+            <if test="record.uniqueIdentity != null">
+                unique_identity = #{record.uniqueIdentity,jdbcType=VARCHAR},
+            </if>
+            <if test="record.clientIp != null">
+                client_ip = #{record.clientIp,jdbcType=VARCHAR},
+            </if>
+            <if test="record.shortUrl != null">
+                short_url = #{record.shortUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="record.longUrl != null">
+                long_url = #{record.longUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="record.shortUrlDigest != null">
+                short_url_digest = #{record.shortUrlDigest,jdbcType=VARCHAR},
+            </if>
+            <if test="record.longUrlDigest != null">
+                long_url_digest = #{record.longUrlDigest,jdbcType=VARCHAR},
+            </if>
+            <if test="record.compressionCode != null">
+                compression_code = #{record.compressionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.recordTime != null">
+                record_time = #{record.recordTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.userAgent != null">
+                user_agent = #{record.userAgent,jdbcType=VARCHAR},
+            </if>
+            <if test="record.cookieValue != null">
+                cookie_value = #{record.cookieValue,jdbcType=VARCHAR},
+            </if>
+            <if test="record.queryParam != null">
+                query_param = #{record.queryParam,jdbcType=VARCHAR},
+            </if>
+            <if test="record.province != null">
+                province = #{record.province,jdbcType=VARCHAR},
+            </if>
+            <if test="record.city != null">
+                city = #{record.city,jdbcType=VARCHAR},
+            </if>
+            <if test="record.phoneType != null">
+                phone_type = #{record.phoneType,jdbcType=VARCHAR},
+            </if>
+            <if test="record.browserType != null">
+                browser_type = #{record.browserType,jdbcType=VARCHAR},
+            </if>
+            <if test="record.browserVersion != null">
+                browser_version = #{record.browserVersion,jdbcType=VARCHAR},
+            </if>
+            <if test="record.osType != null">
+                os_type = #{record.osType,jdbcType=VARCHAR},
+            </if>
+            <if test="record.deviceType != null">
+                device_type = #{record.deviceType,jdbcType=VARCHAR},
+            </if>
+            <if test="record.osVersion != null">
+                os_version = #{record.osVersion,jdbcType=VARCHAR},
+            </if>
+            <if test="record.transformStatus != null">
+                transform_status = #{record.transformStatus,jdbcType=TINYINT},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update transform_event_record
+        set id = #{record.id,jdbcType=BIGINT},
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+        edit_time = #{record.editTime,jdbcType=TIMESTAMP},
+        creator = #{record.creator,jdbcType=VARCHAR},
+        editor = #{record.editor,jdbcType=VARCHAR},
+        deleted = #{record.deleted,jdbcType=TINYINT},
+        version = #{record.version,jdbcType=BIGINT},
+        unique_identity = #{record.uniqueIdentity,jdbcType=VARCHAR},
+        client_ip = #{record.clientIp,jdbcType=VARCHAR},
+        short_url = #{record.shortUrl,jdbcType=VARCHAR},
+        long_url = #{record.longUrl,jdbcType=VARCHAR},
+        short_url_digest = #{record.shortUrlDigest,jdbcType=VARCHAR},
+        long_url_digest = #{record.longUrlDigest,jdbcType=VARCHAR},
+        compression_code = #{record.compressionCode,jdbcType=VARCHAR},
+        record_time = #{record.recordTime,jdbcType=TIMESTAMP},
+        user_agent = #{record.userAgent,jdbcType=VARCHAR},
+        cookie_value = #{record.cookieValue,jdbcType=VARCHAR},
+        query_param = #{record.queryParam,jdbcType=VARCHAR},
+        province = #{record.province,jdbcType=VARCHAR},
+        city = #{record.city,jdbcType=VARCHAR},
+        phone_type = #{record.phoneType,jdbcType=VARCHAR},
+        browser_type = #{record.browserType,jdbcType=VARCHAR},
+        browser_version = #{record.browserVersion,jdbcType=VARCHAR},
+        os_type = #{record.osType,jdbcType=VARCHAR},
+        device_type = #{record.deviceType,jdbcType=VARCHAR},
+        os_version = #{record.osVersion,jdbcType=VARCHAR},
+        transform_status = #{record.transformStatus,jdbcType=TINYINT}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.throwx.octopus.server.model.entity.TransformEventRecord">
+        update transform_event_record
+        <set>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="editTime != null">
+                edit_time = #{editTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="creator != null">
+                creator = #{creator,jdbcType=VARCHAR},
+            </if>
+            <if test="editor != null">
+                editor = #{editor,jdbcType=VARCHAR},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted,jdbcType=TINYINT},
+            </if>
+            <if test="version != null">
+                version = #{version,jdbcType=BIGINT},
+            </if>
+            <if test="uniqueIdentity != null">
+                unique_identity = #{uniqueIdentity,jdbcType=VARCHAR},
+            </if>
+            <if test="clientIp != null">
+                client_ip = #{clientIp,jdbcType=VARCHAR},
+            </if>
+            <if test="shortUrl != null">
+                short_url = #{shortUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="longUrl != null">
+                long_url = #{longUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="shortUrlDigest != null">
+                short_url_digest = #{shortUrlDigest,jdbcType=VARCHAR},
+            </if>
+            <if test="longUrlDigest != null">
+                long_url_digest = #{longUrlDigest,jdbcType=VARCHAR},
+            </if>
+            <if test="compressionCode != null">
+                compression_code = #{compressionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="recordTime != null">
+                record_time = #{recordTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="userAgent != null">
+                user_agent = #{userAgent,jdbcType=VARCHAR},
+            </if>
+            <if test="cookieValue != null">
+                cookie_value = #{cookieValue,jdbcType=VARCHAR},
+            </if>
+            <if test="queryParam != null">
+                query_param = #{queryParam,jdbcType=VARCHAR},
+            </if>
+            <if test="province != null">
+                province = #{province,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null">
+                city = #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="phoneType != null">
+                phone_type = #{phoneType,jdbcType=VARCHAR},
+            </if>
+            <if test="browserType != null">
+                browser_type = #{browserType,jdbcType=VARCHAR},
+            </if>
+            <if test="browserVersion != null">
+                browser_version = #{browserVersion,jdbcType=VARCHAR},
+            </if>
+            <if test="osType != null">
+                os_type = #{osType,jdbcType=VARCHAR},
+            </if>
+            <if test="deviceType != null">
+                device_type = #{deviceType,jdbcType=VARCHAR},
+            </if>
+            <if test="osVersion != null">
+                os_version = #{osVersion,jdbcType=VARCHAR},
+            </if>
+            <if test="transformStatus != null">
+                transform_status = #{transformStatus,jdbcType=TINYINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.throwx.octopus.server.model.entity.TransformEventRecord">
+        update transform_event_record
+        set create_time      = #{createTime,jdbcType=TIMESTAMP},
+            edit_time        = #{editTime,jdbcType=TIMESTAMP},
+            creator          = #{creator,jdbcType=VARCHAR},
+            editor           = #{editor,jdbcType=VARCHAR},
+            deleted          = #{deleted,jdbcType=TINYINT},
+            version          = #{version,jdbcType=BIGINT},
+            unique_identity  = #{uniqueIdentity,jdbcType=VARCHAR},
+            client_ip        = #{clientIp,jdbcType=VARCHAR},
+            short_url        = #{shortUrl,jdbcType=VARCHAR},
+            long_url         = #{longUrl,jdbcType=VARCHAR},
+            short_url_digest = #{shortUrlDigest,jdbcType=VARCHAR},
+            long_url_digest  = #{longUrlDigest,jdbcType=VARCHAR},
+            compression_code = #{compressionCode,jdbcType=VARCHAR},
+            record_time      = #{recordTime,jdbcType=TIMESTAMP},
+            user_agent       = #{userAgent,jdbcType=VARCHAR},
+            cookie_value     = #{cookieValue,jdbcType=VARCHAR},
+            query_param      = #{queryParam,jdbcType=VARCHAR},
+            province         = #{province,jdbcType=VARCHAR},
+            city             = #{city,jdbcType=VARCHAR},
+            phone_type       = #{phoneType,jdbcType=VARCHAR},
+            browser_type     = #{browserType,jdbcType=VARCHAR},
+            browser_version  = #{browserVersion,jdbcType=VARCHAR},
+            os_type          = #{osType,jdbcType=VARCHAR},
+            device_type      = #{deviceType,jdbcType=VARCHAR},
+            os_version       = #{osVersion,jdbcType=VARCHAR},
+            transform_status = #{transformStatus,jdbcType=TINYINT}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+</mapper>

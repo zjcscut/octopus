@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.throwx.octopus.server.repository.UrlMapDao">
+    <resultMap id="BaseResultMap" type="cn.throwx.octopus.server.model.entity.UrlMap"
+               extends="cn.throwx.octopus.server.repository.mapper.UrlMapMapper.BaseResultMap">
+    </resultMap>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT *
+        FROM url_map
+        WHERE deleted = 0
+    </select>
+
+    <select id="selectByCompressionCode" resultMap="BaseResultMap">
+        SELECT *
+        FROM url_map
+        WHERE deleted = 0
+          AND compression_code = #{compressionCode}
+    </select>
+
+</mapper>

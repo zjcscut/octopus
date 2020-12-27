@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.throwx.octopus.server.repository.TransformEventRecordDao">
+    <resultMap id="BaseResultMap" type="cn.throwx.octopus.server.model.entity.TransformEventRecord"
+               extends="cn.throwx.octopus.server.repository.mapper.TransformEventRecordMapper.BaseResultMap">
+    </resultMap>
+
+    <select id="queryVisitStatisticsDuration" resultMap="BaseResultMap">
+        SELECT COUNT(1)                             AS                `pvCount`,
+               IFNULL(COUNT(DISTINCT unique_identity), 0)             `uvCount`,
+               IFNULL(COUNT(DISTINCT client_ip), 0)                   `ipCount`,
+               SUM(CASE WHEN transform_status = 3 THEN 1 ELSE 0 END)  `effectiveRedirectionCount`,
+               SUM(CASE WHEN transform_status != 3 THEN 1 ELSE 0 END) `ineffectiveRedirectionCount`,
+               DATE_FORMAT(record_time, '%Y-%m-%d') AS                `statisticsDate`,
+               compression_code                     AS                `compressionCode`,
+               short_url_digest                     AS                `shortUrlDigest`,
+               long_url_digest                      AS                `longUrlDigest`
+        FROM transform_event_record
+        WHERE deleted = 0
+          AND record_time <![CDATA[>=]]> #{start,jdbcType=TIMESTAMP}
+          AND record_time <![CDATA[<=]]> #{end,jdbcType=TIMESTAMP}
+        GROUP BY compression_code, DATE_FORMAT(record_time, '%Y-%m-%d'), short_url_digest, long_url_digest
+    </select>
+
+</mapper>

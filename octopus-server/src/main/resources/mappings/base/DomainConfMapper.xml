@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.throwx.octopus.server.repository.mapper.DomainConfMapper">
+    <resultMap id="BaseResultMap" type="cn.throwx.octopus.server.model.entity.DomainConf">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="domain_value" jdbcType="VARCHAR" property="domainValue"/>
+        <result column="protocol" jdbcType="VARCHAR" property="protocol"/>
+        <result column="domain_status" jdbcType="TINYINT" property="domainStatus"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="edit_time" jdbcType="TIMESTAMP" property="editTime"/>
+        <result column="creator" jdbcType="VARCHAR" property="creator"/>
+        <result column="editor" jdbcType="VARCHAR" property="editor"/>
+        <result column="deleted" jdbcType="TINYINT" property="deleted"/>
+        <result column="version" jdbcType="BIGINT" property="version"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        id, domain_value, protocol, domain_status, create_time, edit_time, creator, editor,
+    deleted, version
+    </sql>
+    <select id="selectByExample" parameterType="cn.throwx.octopus.server.model.entity.DomainConfExample"
+            resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from domain_conf
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from domain_conf
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete
+        from domain_conf
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="cn.throwx.octopus.server.model.entity.DomainConf">
+        insert into domain_conf (id, domain_value, protocol,
+                                 domain_status, create_time, edit_time,
+                                 creator, editor, deleted,
+                                 version)
+        values (#{id,jdbcType=BIGINT}, #{domainValue,jdbcType=VARCHAR}, #{protocol,jdbcType=VARCHAR},
+                #{domainStatus,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{editTime,jdbcType=TIMESTAMP},
+                #{creator,jdbcType=VARCHAR}, #{editor,jdbcType=VARCHAR}, #{deleted,jdbcType=TINYINT},
+                #{version,jdbcType=BIGINT})
+    </insert>
+    <insert id="insertSelective" parameterType="cn.throwx.octopus.server.model.entity.DomainConf"
+            keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+        insert into domain_conf
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="domainValue != null">
+                domain_value,
+            </if>
+            <if test="protocol != null">
+                protocol,
+            </if>
+            <if test="domainStatus != null">
+                domain_status,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="editTime != null">
+                edit_time,
+            </if>
+            <if test="creator != null">
+                creator,
+            </if>
+            <if test="editor != null">
+                editor,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+            <if test="version != null">
+                version,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="domainValue != null">
+                #{domainValue,jdbcType=VARCHAR},
+            </if>
+            <if test="protocol != null">
+                #{protocol,jdbcType=VARCHAR},
+            </if>
+            <if test="domainStatus != null">
+                #{domainStatus,jdbcType=TINYINT},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="editTime != null">
+                #{editTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="creator != null">
+                #{creator,jdbcType=VARCHAR},
+            </if>
+            <if test="editor != null">
+                #{editor,jdbcType=VARCHAR},
+            </if>
+            <if test="deleted != null">
+                #{deleted,jdbcType=TINYINT},
+            </if>
+            <if test="version != null">
+                #{version,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByExampleSelective" parameterType="map">
+        update domain_conf
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=BIGINT},
+            </if>
+            <if test="record.domainValue != null">
+                domain_value = #{record.domainValue,jdbcType=VARCHAR},
+            </if>
+            <if test="record.protocol != null">
+                protocol = #{record.protocol,jdbcType=VARCHAR},
+            </if>
+            <if test="record.domainStatus != null">
+                domain_status = #{record.domainStatus,jdbcType=TINYINT},
+            </if>
+            <if test="record.createTime != null">
+                create_time = #{record.createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.editTime != null">
+                edit_time = #{record.editTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.creator != null">
+                creator = #{record.creator,jdbcType=VARCHAR},
+            </if>
+            <if test="record.editor != null">
+                editor = #{record.editor,jdbcType=VARCHAR},
+            </if>
+            <if test="record.deleted != null">
+                deleted = #{record.deleted,jdbcType=TINYINT},
+            </if>
+            <if test="record.version != null">
+                version = #{record.version,jdbcType=BIGINT},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update domain_conf
+        set id = #{record.id,jdbcType=BIGINT},
+        domain_value = #{record.domainValue,jdbcType=VARCHAR},
+        protocol = #{record.protocol,jdbcType=VARCHAR},
+        domain_status = #{record.domainStatus,jdbcType=TINYINT},
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+        edit_time = #{record.editTime,jdbcType=TIMESTAMP},
+        creator = #{record.creator,jdbcType=VARCHAR},
+        editor = #{record.editor,jdbcType=VARCHAR},
+        deleted = #{record.deleted,jdbcType=TINYINT},
+        version = #{record.version,jdbcType=BIGINT}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.throwx.octopus.server.model.entity.DomainConf">
+        update domain_conf
+        <set>
+            <if test="domainValue != null">
+                domain_value = #{domainValue,jdbcType=VARCHAR},
+            </if>
+            <if test="protocol != null">
+                protocol = #{protocol,jdbcType=VARCHAR},
+            </if>
+            <if test="domainStatus != null">
+                domain_status = #{domainStatus,jdbcType=TINYINT},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="editTime != null">
+                edit_time = #{editTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="creator != null">
+                creator = #{creator,jdbcType=VARCHAR},
+            </if>
+            <if test="editor != null">
+                editor = #{editor,jdbcType=VARCHAR},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted,jdbcType=TINYINT},
+            </if>
+            <if test="version != null">
+                version = #{version,jdbcType=BIGINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.throwx.octopus.server.model.entity.DomainConf">
+        update domain_conf
+        set domain_value  = #{domainValue,jdbcType=VARCHAR},
+            protocol      = #{protocol,jdbcType=VARCHAR},
+            domain_status = #{domainStatus,jdbcType=TINYINT},
+            create_time   = #{createTime,jdbcType=TIMESTAMP},
+            edit_time     = #{editTime,jdbcType=TIMESTAMP},
+            creator       = #{creator,jdbcType=VARCHAR},
+            editor        = #{editor,jdbcType=VARCHAR},
+            deleted       = #{deleted,jdbcType=TINYINT},
+            version       = #{version,jdbcType=BIGINT}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+</mapper>

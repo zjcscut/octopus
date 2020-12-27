@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+    <property name="app-name" value="octopus"/>
+    <property name="filename" value="server"/>
+    <property name="dev-group-name" value="throwx"/>
+
+    <contextListener class="org.slf4j.TransmittableThreadLocalMappedDiagnosticContextListener"/>
+
+    <appender name="fileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/data/log-center/${app-name}/${filename}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>/data/log-center/${app-name}/${filename}.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>[%date{ISO8601}] [%level] %logger{80} [%thread] [%X{TRACE_ID}] ${dev-group-name} ${app-name} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>[%date{ISO8601}] [%level] %logger{80} [%thread] [%X{TRACE_ID}] - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 日志输出级别 -->
+    <root level="INFO" additivity="false">
+        <appender-ref ref="consoleAppender"/>
+        <appender-ref ref="fileAppender"/>
+    </root>
+</configuration>

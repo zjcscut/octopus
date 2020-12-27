@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!-- 数据库驱动-->
+    <context id="MysqlTables" targetRuntime="MyBatis3">
+        <property name="autoDelimitKeywords" value="true"/>
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true"/>
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+        <!--覆盖生成XML文件-->
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/db_octopus?serverTimezone=Asia/Shanghai&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull&amp;useSSL=false&amp;nullCatalogMeansCurrent=true"
+                        userId="root" password="root"/>
+
+        <javaTypeResolver type="cn.throwx.octopus.DefaultJavaTypeResolver">
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!-- 生成模型的包名和位置(实体类)-->
+        <javaModelGenerator targetPackage="cn.throwx.octopus.server.model.entity"
+                            targetProject="octopus-server/src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="false"/>
+
+        </javaModelGenerator>
+
+        <!-- 生成映射文件的包名和位置-->
+        <sqlMapGenerator targetPackage="mappings.base"
+                         targetProject="octopus-server/src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!-- 生成DAO的包名和位置-->
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="cn.throwx.octopus.server.repository.mapper"
+                             targetProject="octopus-server/src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <table tableName="url_map"
+               enableCountByExample="false"
+               enableUpdateByExample="true"
+               enableDeleteByExample="false"
+               enableSelectByExample="true">
+        </table>
+
+        <table tableName="domain_conf"
+               enableCountByExample="false"
+               enableUpdateByExample="true"
+               enableDeleteByExample="false"
+               enableSelectByExample="true">
+        </table>
+
+        <table tableName="compression_code"
+               enableCountByExample="false"
+               enableUpdateByExample="true"
+               enableDeleteByExample="false"
+               enableSelectByExample="true">
+        </table>
+
+        <table tableName="transform_event_record"
+               enableCountByExample="false"
+               enableUpdateByExample="true"
+               enableDeleteByExample="false"
+               enableSelectByExample="true">
+        </table>
+
+        <table tableName="visit_statistics"
+               enableCountByExample="false"
+               enableUpdateByExample="true"
+               enableDeleteByExample="false"
+               enableSelectByExample="true">
+        </table>
+
+    </context>
+</generatorConfiguration>

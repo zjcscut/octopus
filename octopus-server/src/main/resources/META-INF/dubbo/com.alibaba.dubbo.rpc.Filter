@@ -1,0 +1,1 @@
+methodFilter=com.dmc.octopus.infrastructure.support.dubbo.DubboMethodFilter

@@ -5,11 +5,15 @@ import cn.vlts.octopus.gateway.config.MainExchangeProperties;
 import cn.vlts.octopus.gateway.vertx.RouterConfigurer;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.http.HttpServerRequest;
+import io.vertx.ext.web.Route;
 import io.vertx.ext.web.Router;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Main exchange.
@@ -35,11 +39,16 @@ public class MainExchange implements RouterConfigurer {
 
     @Override
     public void registerRoutes(Router router) {
-        router.route(COMPRESS_CODE_PATTERN)
-                .method(HttpMethod.POST)
-                .method(HttpMethod.GET)
-                .method(HttpMethod.PUT)
-                .handler(ctx -> {
+        Set<HttpMethod> allowHttpMethods = mainExchangeProperties.getAllowHttpMethods()
+                .stream()
+                .map(m -> HttpMethod.valueOf(m.toUpperCase()))
+                .collect(Collectors.toSet());
+        if (CollectionUtils.isEmpty(allowHttpMethods)) {
+            allowHttpMethods.add(HttpMethod.GET);
+        }
+        Route route = router.route(COMPRESS_CODE_PATTERN);
+        allowHttpMethods.forEach(route::method);
+        route.handler(ctx -> {
                     String compressCode = ctx.pathParam(COMPRESS_CODE_KEY);
                     if (!StringUtils.hasLength(compressCode)) {
                         throw new IllegalArgumentException("");

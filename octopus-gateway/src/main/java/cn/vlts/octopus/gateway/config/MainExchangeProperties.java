@@ -4,6 +4,10 @@ import cn.vlts.octopus.gateway.common.VertxStatusCode;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 import static cn.vlts.octopus.gateway.config.MainExchangeProperties.PREFIX;
 
 /**
@@ -22,6 +26,8 @@ public class MainExchangeProperties {
     private static final String DEFAULT_FAILURE_CONTENT_TYPE = "text/plain";
 
     private static final String DEFAULT_FAILURE_CONTENT = "Internal Server Error";
+
+    private Set<String> allowHttpMethods = new HashSet<>(Arrays.asList("GET", "POST", "PUT"));
 
     private Integer failureStatusCode = VertxStatusCode.INTERNAL_SERVER_ERROR;
 

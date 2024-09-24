@@ -11,6 +11,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
+import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -43,6 +44,7 @@ public class MainVerticle extends AbstractVerticle implements ApplicationContext
             Integer port = httpServerProperties.getPort();
             HttpServerOptions options = new HttpServerOptions();
             Router mainRouter = Router.router(vertx);
+            context.getBeansOfType(RouterConfigurer.class).forEach((_, rc) -> rc.registerRoutes(mainRouter));
             httpServer = vertx.createHttpServer(options).requestHandler(mainRouter);
             httpServer.listen(port).onComplete(asyncResult -> {
                 if (asyncResult.succeeded()) {

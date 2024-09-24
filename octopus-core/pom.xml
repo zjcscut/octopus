@@ -8,17 +8,11 @@
         <artifactId>octopus</artifactId>
         <version>${revision}</version>
     </parent>
-    <artifactId>octopus-admin</artifactId>
+    <artifactId>octopus-core</artifactId>
     <packaging>jar</packaging>
-    <name>octopus-admin ${project.version}</name>
-    <description>admin module for Octopus built with Maven</description>
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-    </dependencies>
+    <name>octopus-core ${project.version}</name>
+    <description>core module for Octopus built with Maven</description>
     <build>
-        <finalName>octopus-admin</finalName>
+        <finalName>octopus-core</finalName>
     </build>
 </project>

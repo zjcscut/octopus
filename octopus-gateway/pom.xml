@@ -26,4 +26,7 @@
             <artifactId>vertx-web</artifactId>
         </dependency>
     </dependencies>
+    <build>
+        <finalName>octopus-gateway</finalName>
+    </build>
 </project>

@@ -17,6 +17,7 @@
         <module>octopus-dependencies</module>
         <module>octopus-admin</module>
         <module>octopus-gateway</module>
+        <module>octopus-core</module>
     </modules>
     <dependencyManagement>
         <dependencies>
